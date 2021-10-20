@@ -1,0 +1,6 @@
+uwsgi==2.0.19.1
+flask==2.0.1
+youtube_dl
+requests==2.25.1
+gunicorn
+urllib3
