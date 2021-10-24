@@ -10,6 +10,7 @@ This is a web based video player written in flask and html
 - Stream brightcove video using video id
 - Stream JW Player video using video id
 - Stream with direct url
+- Stream YouTube video using link
 
 # How to deploy?
 - Ask at support group
