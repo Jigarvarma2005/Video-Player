@@ -33,7 +33,7 @@ def b64_to_str(b64: str) -> str:
 
 @app.route("/")
 def homepage():
-    return render_template("index.html")
+    return render_template("index1.html")
     
 @app.route("/checker")
 def checker_page():
