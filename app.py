@@ -33,7 +33,27 @@ def b64_to_str(b64: str) -> str:
 
 @app.route("/")
 def homepage():
-    return "working fine"
+    return render_template("index.html")
+    
+@app.route("/checker")
+def checker_page():
+    try:
+        chk_type = request.args['type']
+    except:
+        return "<font color=red size=15>Wrong Video Type</font> <br> ask at @JV_Community in Telegram"
+    if chk_type.lower() == "mpd":
+        return mpd()
+    if chk_type.lower() == "m3u8":
+        return m3u8()
+    if chk_type.lower() == "direct":
+        return play()
+    if chk_type.lower() == "youtube":
+        return youtube()
+    if chk_type.lower() == "brightcove":
+        return brightcove()
+    if chk_type.lower() == "jwplayer":
+        return jw_payer()
+    return 
 
 @app.route("/yt")
 def youtube():
