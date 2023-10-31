@@ -21,15 +21,13 @@ BCOV_POLICY = os.environ.get("BCOV_POLICY", "BCpkADawqM1474MvKwYlMRZNBPoqkJY-UWm
 def str_to_b64(__str: str) -> str:
     str_bytes = __str.encode('ascii')
     bytes_b64 = standard_b64encode(str_bytes)
-    b64 = bytes_b64.decode('ascii')
-    return b64
+    return bytes_b64.decode('ascii')
 
 
 def b64_to_str(b64: str) -> str:
     bytes_b64 = b64.encode('ascii')
     bytes_str = standard_b64decode(bytes_b64)
-    __str = bytes_str.decode('ascii')
-    return __str
+    return bytes_str.decode('ascii')
 
 @app.route("/")
 def homepage():
@@ -60,8 +58,7 @@ def youtube():
     try:
         video_id = request.args['id']
     except Exception as e:
-        edata = "Please parse ?id= when calling the api"
-        return edata
+        return "Please parse ?id= when calling the api"
     try:
         encypted = request.args['en']
     except Exception as e:
@@ -99,8 +96,7 @@ def jw_payer():
     try:
         video_id = request.args['id']
     except Exception as e:
-        edata = "Please parse ?id= when calling the api"
-        return edata
+        return "Please parse ?id= when calling the api"
     try:
         encypted = request.args['en']
     except Exception as e:
@@ -130,8 +126,7 @@ def play():
     try:
         video_id = request.args['id']
     except Exception as e:
-        edata = "Please parse ?id= when calling the api"
-        return edata
+        return "Please parse ?id= when calling the api"
     try:
         encypted = request.args['en']
     except Exception as e:
@@ -159,8 +154,7 @@ def m3u8():
     try:
         video_url = request.args['id']
     except Exception as e:
-        edata = "Please parse ?id= when calling the api"
-        return edata
+        return "Please parse ?id= when calling the api"
     try:
         encypted = request.args['en']
     except Exception as e:
@@ -183,8 +177,7 @@ def mpd():
     try:
         video_url = request.args['id']
     except Exception as e:
-        edata = "Please parse ?id= when calling the api"
-        return edata
+        return "Please parse ?id= when calling the api"
     try:
         encypted = request.args['en']
     except Exception as e:
@@ -207,8 +200,7 @@ def decoder_():
     try:
         video_url = request.args['id']
     except Exception as e:
-        edata = "Please parse ?id= when calling the api"
-        return edata
+        return "Please parse ?id= when calling the api"
     try:
         video_url = b64_to_str(video_url)
     except:
@@ -220,8 +212,7 @@ def encoder_():
     try:
         video_url = request.args['id']
     except Exception as e:
-        edata = "Please parse ?id= when calling the api"
-        return edata
+        return "Please parse ?id= when calling the api"
     video_url = str_to_b64(video_url)
     return {"encoded": video_url}
 
@@ -230,8 +221,7 @@ def brightcove():
     try:
         video_url = request.args['id']
     except Exception as e:
-        edata = "Please parse ?id= when calling the api"
-        return edata
+        return "Please parse ?id= when calling the api"
     try:
         encypted = request.args['en']
     except Exception as e:
@@ -260,12 +250,15 @@ def brightcove():
             "license_url"
         ]
     track_url = video["text_tracks"][1]["src"]
-    if ".mpd" in video_url and ".m3u8" not in video_url:
+    if (
+        ".mpd" in video_url
+        and ".m3u8" not in video_url
+        or ".m3u8" not in video_url
+        or ".mpd" in video_url
+    ):
         templ = "mpd.html"
-    elif ".m3u8" in video_url and ".mpd" not in video_url:
-        templ = "m3u8.html"
     else:
-        templ = "mpd.html"
+        templ = "m3u8.html"
     return render_template(
         templ,
         video_url=video_url,
